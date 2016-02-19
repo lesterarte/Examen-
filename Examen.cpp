@@ -16,6 +16,8 @@ int contarnumeral(char**,int);
 int contarmas(char**,int); 
 void imprimirmatriz(char**, int);
 void validar(char**, int);   
+bool validarmovimiento(char**, int,int); 
+void moverpieza(char**, int,int,int); 
 
 //---------------------------inicio main--------------------
 
@@ -23,7 +25,8 @@ int main(int argc, char*argv[]){
 
 	char** matriz; 
 	int tamanio = 7;
-	int op=0; 
+	int mov,mover; 
+	int fila,columna; 
 	matriz=new char* [tamanio];
 	crearmatriz(matriz,tamanio);
 	iniciarmatriz(matriz,tamanio);  
@@ -34,7 +37,34 @@ int main(int argc, char*argv[]){
 	//while(contarnumeral(matriz,tamanio) ==0 || contarmas(matriz,tamanio)==0){
 
 		imprimirmatriz(matriz,tamanio);
-		cout<<"JUGADOR 1 - MUEVE #"<<endl;
+		cout<<"JUGADOR 1 - MUEVE +"<<endl;
+		cout<<"Ingrese cuantos movimiento quiere mover: \n"
+			<<"1 - un movimiento: \n"
+			<<"2 - dos movimientos: "<<endl; 
+		cin>>mov; 
+		if (mov == 1){
+
+			cout<<"Ingrese las coordenadas en las que se encuentra su pieza: (fila,columna) "<<endl; 
+			cin>>fila>>columna; 
+			cout<<"\nHacia donde desea moverse:"
+				<<"\n1 - Arriba\n2 - Abajo\n3 - Derecha\n4. Izquierda"
+				<<endl; 
+			cin>>mover; 
+			if((validarmovimiento(matriz,tamanio,mov)) ==false){
+
+				cout<<"Movimiento incorrecto. pierde turno"<<endl;  
+
+			}
+			else{
+				cout<<"Movimiento hecho satisfactoriamente"<<endl;
+				moverpieza(matriz,fila,columna,mover); 
+			}
+
+			
+		}
+		if (mov==2){
+
+		}
 
 		
 	//}
@@ -58,7 +88,7 @@ void iniciarmatriz(char** matriz, int size){
 
 	for (int i = 0; i <size; i++){
 		for (int j = 0; j < size; j++){
-			matriz[i][j] ='\0'; 			
+			matriz[i][j] ='-'; 			
 		}
 	}
 }
@@ -108,14 +138,75 @@ int contarmas(char** matriz,int size){
 }
 
 void imprimirmatriz(char** matriz,int size){
-
+	cout<<endl<<"-------Coordenadas Juego---------"<<endl; 
+	cout<<setw(5); 
 	for (int i = 0; i <size; i++){
 		for (int j = 0; j < size; j++){
-			cout<<endl<<"------------------Coordenadas Juego----------------"<<endl
-				<<setw(5)<<matriz[i][j]; 	
+			
+				cout<<matriz[i][j]<<setw(5); 	
 
 		}
 		cout<<endl; 
+		
 	}
 
+
+}
+
+bool validarmovimiento(char** matriz, int size, int eleccion){
+
+
+
+
+}
+
+void moverpieza(char** matriz, int fila,int columna,int eleccion){
+
+	if (eleccion==1){
+		if (matriz[fila][columna]=='#'){
+			matriz[fila][columna]== '-';
+			matriz[fila-1][columna]='#'; 
+		}
+		else{
+			matriz[fila][columna]=='-'; 
+			matriz[fila-1][columna]='+'; 
+		}
+		
+	}
+	if (eleccion==2){
+		if (matriz[fila][columna]=='#'){
+			matriz[fila][columna]== '-';
+			matriz[fila+1][columna]='#'; 
+		}
+		else{
+			matriz[fila][columna]=='-'; 
+			matriz[fila+1][columna]='+'; 
+		}
+		
+	}
+	if (eleccion==3){
+		if (matriz[fila][columna]=='#'){
+			matriz[fila][columna]== '-';
+			matriz[fila][columna+1]='#'; 
+		}
+		else{
+			matriz[fila][columna]=='-'; 
+			matriz[fila][columna+1]='+'; 
+		}
+		
+	}
+	if (eleccion==4){
+		if (matriz[fila][columna]=='#'){
+			matriz[fila][columna]== '-';
+			matriz[fila][columna-1]='#'; 
+		}
+		else{
+			matriz[fila][columna]=='-'; 
+			matriz[fila][columna-1]='+'; 
+		}
+		
+	}
+
+	
+	
 }
